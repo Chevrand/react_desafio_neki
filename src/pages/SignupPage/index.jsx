@@ -20,9 +20,9 @@ const SignupPage = () => {
     const navigate = useNavigate();
     
     const signup = async () => {
-        const errorMsg = "Algo deu errado com a requisição. Verifique os campos digitados e tente novamente!";
+        const errorMsg = "Algo deu errado com a requisição. Verifique os campos digitados e tente novamente!";        
         
-        if (password === password2 & (userLogin & password)) {
+        if (password === password2 & (userLogin != null) & (password != null) ) {
             try {
                 const { data } = await api.post(`/user/save`,
                     {
@@ -32,7 +32,7 @@ const SignupPage = () => {
                 );
                 alert(data);
                 navigate("/login");
-            }catch {
+            }catch {                
                 alert(errorMsg);
             }
         } else {
