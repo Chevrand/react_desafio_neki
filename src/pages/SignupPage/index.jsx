@@ -18,9 +18,11 @@ const SignupPage = () => {
     const [password2, setPassword2] = useState("");
 
     const navigate = useNavigate();
-
+    
     const signup = async () => {
-        if (password === password2) {
+        const errorMsg = "Algo deu errado com a requisição. Verifique os campos digitados e tente novamente!";
+        
+        if (password === password2 & (userLogin & password)) {
             try {
                 const { data } = await api.post(`/user/save`,
                     {
@@ -31,10 +33,10 @@ const SignupPage = () => {
                 alert(data);
                 navigate("/login");
             }catch {
-                alert("Algo deu errado com a requisição. Verifique os campos digitados e tente novamente!")
+                alert(errorMsg);
             }
         } else {
-            alert("Passwords informados não conferem. Verifique e tente novamente!")
+            alert(errorMsg);
         }
     }
 

@@ -12,6 +12,8 @@ export const AuthProvider = ({ children }) => {
 
   const navigate = useNavigate();
 
+  api.defaults.headers.Authorization = `Bearer ${token}`;
+
   useEffect(() => {
     const recoveredUser = localStorage.getItem("userLogin");
     if (recoveredUser) {
