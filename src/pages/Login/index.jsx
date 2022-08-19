@@ -1,5 +1,5 @@
 //Styles
-import { Logo, Tittle, WrapperLogin, Link, LoginButton } from "./styles"
+import { Logo, Tittle, WrapperLogin, StyledLink, LoginButton } from "./styles"
 import imgLogo from '../../assets/logo.png';
 
 //Components
@@ -40,9 +40,9 @@ const Login = () => {
                 <Tittle>Login</Tittle>
                 <Logo src={imgLogo} />
                 <InputDefault value={userLogin} placeholder="Login" onChange={(e) => setUserLogin(e.target.value)} />
-                <InputPassword value={password} onChange={(e) => setPassword(e.target.value)} />
+                <InputPassword value={password} placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
                 <InputCheckbox checked={saveLogin} onChange={()=> handleChange()} />
-                <Link href="https://www.w3schools.com" style>Cadastre-se aqui!</Link>
+                <StyledLink to="/signup" >Cadastre-se aqui!</StyledLink>
                 <LoginButton onClick={()=> login(userLogin, password, saveLogin)}>Entrar</LoginButton>
             </WrapperLogin>
         </MainContainer>

@@ -1,9 +1,8 @@
 import styled from "styled-components";
 import colors from "../../themes/colors";
 import spacing from "../../themes/spacing";
-import { Link } from "react-router-dom";
 
-export const WrapperLogin = styled.div`
+export const WrapperSignup = styled.div`
     width: 20rem;
     height: 35rem;
     background-color: ${colors.primary};
@@ -25,19 +24,7 @@ export const Logo = styled.img`
     margin-bottom: ${spacing.medium};
 `;
 
-export const StyledLink = styled(Link)`
-    color: white;
-    font-weight: 500;
-    text-decoration: none;
-    margin-bottom: ${spacing.medium};
-
-    &:hover {
-        transition: 0.35s;
-        text-decoration: underline;
-    }
-`;
-
-export const LoginButton = styled.button`
+export const SignupButton = styled.button`
     transition: .5s;
     background-color: ${colors.secondary};
     border: none;
@@ -51,7 +38,7 @@ export const LoginButton = styled.button`
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: ${spacing.small};
+    margin-top: ${spacing.medium};
 
     &:hover {
         cursor: pointer;

@@ -1,5 +1,6 @@
 //Pages
 import Login from '../pages/Login';
+import SignupPage from './../pages/SignupPage/index';
 import LoadingPage from './../pages/LoadingPage/index';
 import Home from '../pages/Home';
 
@@ -37,6 +38,8 @@ const AppRoutes = () => {
             <AuthProvider>
                 <Routes>
                     <Route path='/login' element={<Login />} />
+                    <Route path='/signup' element={<SignupPage />} />
+                    <Route path='/loading' element={<LoadingPage />} />
                     <Route path='/' element={<Private><Home /></Private>} />
                 </Routes>
             </AuthProvider>

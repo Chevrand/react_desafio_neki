@@ -4,7 +4,7 @@ import { BsFillEyeSlashFill } from "react-icons/bs";
 import { useState } from "react";
 
 
-const InputPassword = ({ value, onChange }) => {
+const InputPassword = ({ value, placeholder, onChange }) => {
     const [ eyeType, setEyeType ] = useState(<BsFillEyeSlashFill/>);
     const [ inputType, setInputType ] = useState("password");
 
@@ -20,7 +20,7 @@ const InputPassword = ({ value, onChange }) => {
 
     return (
         <WrapperInput>
-            <StyledInput type={inputType} value={value} placeholder="Password" onChange={onChange} />
+            <StyledInput type={inputType} value={value} placeholder={placeholder} onChange={onChange} />
             <EyeButton onClick={()=> passwordVisibility()}>{eyeType}</EyeButton>
         </WrapperInput>
     )
