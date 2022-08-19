@@ -13,21 +13,23 @@ import { AuthContext } from "../../contexts/auth";
 import { api } from './../../services/api';
 
 const Home = () => {
-    const { user } = useContext(AuthContext);
-    const [ skillList, setSkillList ] = useState([]);
+    const { user, token } = useContext(AuthContext);
+    const [skillList, setSkillList] = useState([]);
+
+    api.defaults.headers.Authorization = `Bearer ${token}`;
 
     const getSkillList = async (userLogin) => {
         try {
             const { data } = await api.get(`/user-skill/${userLogin}`);
             setSkillList(data);
-        }catch {
+        } catch {
             alert("Algo de errado ocorreu com a requisição. Por favor, tente mais tarde!");
         }
     }
 
     useEffect(() => {
         getSkillList(user.userLogin);
-    },[]);
+    }, [skillList]);
 
     return (
         <MainContainer>
@@ -38,11 +40,12 @@ const Home = () => {
                 </PlusButton>
                 {skillList.map((skill) => (
                     <SkillCard
-                    skillImg={skill.skillImage}
-                    skillName={skill.skillName}
-                    skillLevel={skill.knowledgLevel}
-                    skillVersion={skill.skillVersion}
-                    skillDescription={skill.skillDescription}
+                        userSkillId={skill.id}
+                        skillImg={skill.skillImage}
+                        skillName={skill.skillName}
+                        skillLevel={skill.knowledgLevel}
+                        skillVersion={skill.skillVersion}
+                        skillDescription={skill.skillDescription}
                     />
                 ))}
             </WrapperSkills>

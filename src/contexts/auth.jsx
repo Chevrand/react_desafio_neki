@@ -6,15 +6,19 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [ user, setUser ] = useState(null);
+  const [ token, setToken ] = useState("");
   const [ savedLogin, setSavedLogin ] = useState(null);
-  const [ token, setToken ] = useState(null);
   const [ loading, setLoading ] = useState(true);
 
   const navigate = useNavigate();
 
-  api.defaults.headers.Authorization = `Bearer ${token}`;
-
+  
   useEffect(() => {
+    const recoveredToken = localStorage.getItem("token");
+    if (recoveredToken) {
+      setToken(recoveredToken);
+    }
+
     const recoveredUser = localStorage.getItem("userLogin");
     if (recoveredUser) {
       setUser(JSON.parse(recoveredUser));
@@ -23,11 +27,6 @@ export const AuthProvider = ({ children }) => {
     const recoveredLogin = localStorage.getItem("savedLogin");
     if (recoveredLogin) {
       setSavedLogin(JSON.parse(recoveredLogin));
-    }
-
-    const recoveredToken = localStorage.getItem("token");
-    if (recoveredToken) {
-      setToken(recoveredToken);
     }
 
     setLoading(false);
@@ -62,7 +61,7 @@ export const AuthProvider = ({ children }) => {
       alert(`Seja bem vindo(a), ${userLogin}!`);
       navigate("/");
 
-    } catch (error) {
+    } catch {
       localStorage.setItem("userLogin", null);
       alert("Dados incorretos. Por favor, tente novamente!");
     }
@@ -72,12 +71,11 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem("userLogin");
     localStorage.removeItem("token");
     setUser(null);
-    setToken(null);
     navigate("/login");
   };
 
   return (
-    <AuthContext.Provider value={{ authenticated: !!user, user, loading, token, savedLogin, login, logout }}>
+    <AuthContext.Provider value={{ authenticated: !!user, user, token, loading, savedLogin, login, logout }}>
       {children}
     </AuthContext.Provider>
   )
