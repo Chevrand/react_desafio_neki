@@ -2,6 +2,7 @@
 import Header from "../../components/Header";
 import { MainContainer } from './../../components/MainContainer/styles';
 import SkillCard from "../../components/SkillCard";
+import ModalRegistration from "../../components/ModalRegistration";
 
 //Styles
 import { PlusButton, WrapperSkills } from "./styles";
@@ -15,6 +16,7 @@ import { api } from './../../services/api';
 const Home = () => {
     const { user, token } = useContext(AuthContext);
     const [skillList, setSkillList] = useState([]);
+    const [ modal, setModal ] = useState(false);
 
     api.defaults.headers.Authorization = `Bearer ${token}`;
 
@@ -31,11 +33,15 @@ const Home = () => {
         getSkillList(user.userLogin);
     }, [skillList]);
 
+    const addUserSkill = () => {
+        setModal(true);
+    }
+
     return (
         <MainContainer>
             <Header />
             <WrapperSkills>
-                <PlusButton>
+                <PlusButton onClick={() => addUserSkill()}>
                     <AiFillPlusCircle />
                 </PlusButton>
                 {skillList.map((skill) => (
@@ -49,6 +55,7 @@ const Home = () => {
                     />
                 ))}
             </WrapperSkills>
+            <ModalRegistration isOpen={modal} userLogin={user.userLogin} />
         </MainContainer>
     )
 };
