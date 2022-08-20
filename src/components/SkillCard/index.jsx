@@ -3,10 +3,16 @@ import { SkillImg, StyledButton, WrapperButtons, WrapperCard, WrapperDescription
 import { AiFillEdit } from "react-icons/ai";
 import { BsFillTrashFill } from "react-icons/bs";
 
+//Components
+import ModalUpdate from "../ModalUpdate";
+
 //Others
 import { api } from './../../services/api';
+import { useState } from 'react';
 
 const SkillCard = ({ userSkillId, skillImg, skillName, skillLevel, skillVersion, skillDescription }) => {
+    const [ modal, setModal ] = useState(false);
+
     const deleteUserSkill = async (userSkillId) => {
         try {
             const { data } = await api.delete(`/user-skill/${userSkillId}`);
@@ -16,19 +22,14 @@ const SkillCard = ({ userSkillId, skillImg, skillName, skillLevel, skillVersion,
         }
     }
 
-    const editUserSkill = async (userSkillId, userSkillLevel) => {
-        // try {
-        //     const { data } = await api.put(`/user-skill/${userSkillId}`);
-        //     alert(data);
-        // }catch {
-        //     alert("Não foi possível editar a associação de skill desejada. Por favor, tente mais tarde!")
-        // }
+    const updateUserSkill = () => {
+        setModal(true);
     }
 
     return (
         <WrapperCard>
             <WrapperButtons>
-                <StyledButton onClick={() => editUserSkill(userSkillId)}><AiFillEdit /></StyledButton>
+                <StyledButton  onClick={() => updateUserSkill()}><AiFillEdit /></StyledButton>
                 <StyledButton onClick={() => deleteUserSkill(userSkillId)}><BsFillTrashFill /></StyledButton>
             </WrapperButtons>
             <SkillImg src={skillImg} />
@@ -50,6 +51,7 @@ const SkillCard = ({ userSkillId, skillImg, skillName, skillLevel, skillVersion,
                     {skillDescription}
                 </p>
             </WrapperDescription>
+            <ModalUpdate isOpen={modal} />
         </WrapperCard>
     )
 }
