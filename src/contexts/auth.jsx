@@ -54,6 +54,7 @@ export const AuthProvider = ({ children }) => {
         setSavedLogin(loggedUser);
       }else {
         localStorage.removeItem("savedLogin");
+        setSavedLogin(null);
       }
 
       localStorage.setItem("userLogin", JSON.stringify(loggedUser));
@@ -71,6 +72,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem("userLogin");
     localStorage.removeItem("token");
     setUser(null);
+    setToken(null)
     navigate("/login");
   };
 
